@@ -13,6 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText txtnombres, txttelefonos, txtcorreo;
@@ -70,4 +72,34 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "No hay coincidencia con los datos guardados", Toast.LENGTH_LONG).show();
         }
     }
+
+    public void cmdBuscar_onClick1(View v) {
+        String inputNombre = txtnombres.getText().toString().toLowerCase();
+        String inputCorreo = txtcorreo.getText().toString();
+
+        SharedPreferences preferences = getSharedPreferences("datos", MODE_PRIVATE);
+        Map<String, ?> allEntries = preferences.getAll();
+
+        boolean encontrado = false;
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString().toLowerCase();
+            if (value.contains(inputNombre) || value.contains(inputCorreo)) {
+
+                txtnombres.setText(preferences.getString("nombres", null));
+                txttelefonos.setText(preferences.getString("telefonos", null));
+                txtcorreo.setText(preferences.getString("correo", null));
+
+                Toast.makeText(this, "Datos coincidentes leídos correctamente", Toast.LENGTH_LONG).show();
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+
+            Toast.makeText(this, "No hay coincidencia con los datos guardados", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

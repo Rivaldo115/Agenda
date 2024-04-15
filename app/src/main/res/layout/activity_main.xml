@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="122dp"
         android:layout_marginTop="87dp"
-        android:onClick="cmdBuscar_onClick"
+        android:onClick="cmdBuscar_onClick1"
         android:text="Buscar"
         app:layout_constraintStart_toEndOf="@+id/btnguardar"
         app:layout_constraintTop_toBottomOf="@+id/txtcorreo" />
